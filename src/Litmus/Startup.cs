@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Litmus.Services;
 using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Hosting;
+using Microsoft.AspNet.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+
 
 namespace Litmus
 {
@@ -27,7 +26,8 @@ namespace Litmus
             Configuration = builder.Build();
         }
 
-        public IConfigurationRoot Configuration { get; set; }
+        //public IConfigurationRoot Configuration { get; set; }
+        public IConfiguration Configuration { get; set; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -35,11 +35,15 @@ namespace Litmus
             // Add framework services.
             services.AddApplicationInsightsTelemetry(Configuration);
 
+            services.AddSingleton(provider => Configuration);
+            services.AddSingleton<IGreeter, Greeter>();
+
             services.AddMvc();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, IGreeter greeter)
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
@@ -60,7 +64,7 @@ namespace Litmus
 
             app.UseApplicationInsightsExceptionTelemetry();
 
-            app.UseStaticFiles();
+            app.UseFileServer();
 
             app.UseMvc(routes =>
             {
@@ -68,6 +72,16 @@ namespace Litmus
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            //app.UseMvcWithDefaultRoute();
+
+            //app.Run(async (context) =>
+            //{
+            //    var greeting = greeter.GetGreeting();
+            //    await context.Response.WriteAsync(greeting);
+            //});
+
+
         }
 
         // Entry point for the application.
