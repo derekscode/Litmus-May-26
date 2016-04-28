@@ -33,7 +33,7 @@ namespace Litmus.Services
                 {
                     Id = 3,
                     Name = "King's Contrivance"
-                },
+                }
             };
         }
 
