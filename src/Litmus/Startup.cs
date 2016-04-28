@@ -37,6 +37,7 @@ namespace Litmus
 
             services.AddSingleton(provider => Configuration);
             services.AddSingleton<IGreeter, Greeter>();
+            services.AddScoped<IRestaurantData, InMemoryRestaurantData>();
 
             services.AddMvc();
 
