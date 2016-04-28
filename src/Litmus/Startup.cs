@@ -5,6 +5,7 @@ using Microsoft.AspNet.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json.Serialization;
 
 
 namespace Litmus
@@ -40,7 +41,10 @@ namespace Litmus
             services.AddScoped<IRestaurantData, InMemoryRestaurantData>();
             services.AddScoped<ICardData, InMemoryCardData>();
 
-            services.AddMvc();
+            services.AddMvc().AddJsonOptions(options =>
+            {
+                options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+            });
 
         }
 

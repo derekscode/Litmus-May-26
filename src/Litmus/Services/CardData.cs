@@ -22,8 +22,9 @@ namespace Litmus.Services
                 new Card()
                 {
                     Id = 1,
+                    CardId = "one",
                     State = "CA",
-                    Version = "2015R1",
+                    Version = "http://localhost:8462/api/card",
                     Orientation = "L",
                     Expiration = "2/12/2017",
                     BirthYear = 1974,
@@ -37,6 +38,7 @@ namespace Litmus.Services
                 new Card()
                 {
                     Id = 2,
+                    CardId = "two",
                     State = "KS",
                     Version = "2015R1",
                     Orientation = "P",
@@ -52,6 +54,7 @@ namespace Litmus.Services
                 new Card()
                 {
                     Id = 3,
+                    CardId = "three",
                     State = "IL",
                     Version = "2011R2",
                     Orientation = "L",
