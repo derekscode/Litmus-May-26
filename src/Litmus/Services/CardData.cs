@@ -11,6 +11,7 @@ namespace Litmus.Services
         void Add(Card newCard);
         int Commit();
         void Update(Card newCard);
+        void Delete(int id);
     }
 
     public class SqlCardData : ICardData
@@ -47,7 +48,6 @@ namespace Litmus.Services
         public void Update(Card newCard)
         {
             var oldCard = Get(newCard.Id);
-            //var recordToUpdate = _context.Cards.FirstOrDefault(c => c.Id == card.Id);
 
             if (oldCard != null)
             {
@@ -55,6 +55,14 @@ namespace Litmus.Services
                 oldCard.State = newCard.State;
                 _context.SaveChanges();
             }
+        }
+
+        public void Delete(int id)
+        {
+            var cardToDelete = Get(id);
+
+            _context.Remove(cardToDelete);
+            _context.SaveChanges();
         }
     }
 
@@ -140,6 +148,11 @@ namespace Litmus.Services
         }
 
         public void Update(Card card)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void Delete(int id)
         {
             throw new System.NotImplementedException();
         }

@@ -77,10 +77,11 @@ namespace Litmus.Controllers
 
         }
 
-        // DELETE api/card/5
+        // DELETE api/card/1
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+            _cardData.Delete(id);
         }
     }
 }
