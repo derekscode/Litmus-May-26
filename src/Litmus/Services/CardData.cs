@@ -10,6 +10,7 @@ namespace Litmus.Services
         Card Get(int id);
         void Add(Card newCard);
         int Commit();
+        void Update(Card newCard);
     }
 
     public class SqlCardData : ICardData
@@ -43,9 +44,17 @@ namespace Litmus.Services
             return 0;
         }
 
-        public void Update(Card card)
+        public void Update(Card newCard)
         {
-            //_context[card.Id] = card;
+            var oldCard = Get(newCard.Id);
+            //var recordToUpdate = _context.Cards.FirstOrDefault(c => c.Id == card.Id);
+
+            if (oldCard != null)
+            {
+                oldCard.CardId = newCard.CardId;
+                oldCard.State = newCard.State;
+                _context.SaveChanges();
+            }
         }
     }
 
@@ -128,6 +137,11 @@ namespace Litmus.Services
         public int Commit()
         {
             return 0;
+        }
+
+        public void Update(Card card)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

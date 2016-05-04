@@ -72,9 +72,9 @@ namespace Litmus.Controllers
 
             // flesh this out using: http://docs.asp.net/en/latest/tutorials/first-web-api.html#implement-the-other-crud-operations
 
+            _cardData.Update(updatedCard);
+            return new NoContentResult();
 
-
-            return Json("");
         }
 
         // DELETE api/card/5
