@@ -11,6 +11,33 @@ namespace Litmus.Services
         void Add(Card newCard);
     }
 
+    public class SqlCardData : ICardData
+    {
+        private LitmusDbContext _context;
+
+        public SqlCardData(LitmusDbContext context)
+        {
+            _context = context;
+        }
+
+        public void Add(Card newCard)
+        {
+            _context.Add(newCard);
+            _context.SaveChanges();
+        }
+
+        public IEnumerable<Card> GetAll()
+        {
+            return _context.Cards.ToList();
+        }
+
+        public Card Get(int id)
+        {
+            return _context.Cards.FirstOrDefault(c => c.Id == id);
+        }
+
+    }
+
     public class InMemoryCardData : ICardData
     {
         static List<Card> _cards;
@@ -22,9 +49,9 @@ namespace Litmus.Services
                 new Card()
                 {
                     Id = 1,
-                    CardId = "one",
+                    CardId = "C3820335",
                     State = "CA",
-                    Version = "http://localhost:8462/api/card",
+                    Version = "2016R2",
                     Orientation = "L",
                     Expiration = "2/12/2017",
                     BirthYear = 1974,
@@ -38,7 +65,7 @@ namespace Litmus.Services
                 new Card()
                 {
                     Id = 2,
-                    CardId = "two",
+                    CardId = "K349223",
                     State = "KS",
                     Version = "2015R1",
                     Orientation = "P",
@@ -54,7 +81,7 @@ namespace Litmus.Services
                 new Card()
                 {
                     Id = 3,
-                    CardId = "three",
+                    CardId = "I34832092",
                     State = "IL",
                     Version = "2011R2",
                     Orientation = "L",

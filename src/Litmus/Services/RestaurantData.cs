@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using AutoMapper;
 using Litmus.Entities;
 
 namespace Litmus.Services
@@ -10,6 +11,34 @@ namespace Litmus.Services
         Restaurant Get(int id);
         void Add(Restaurant newRestaurant);
     }
+
+    public class SqlRestaurantData : IRestaurantData
+    {
+        private OdeToFoodDbContext _context;
+
+        public SqlRestaurantData(OdeToFoodDbContext context)
+        {
+            _context = context;
+        }
+
+        public void Add(Restaurant newRestaurant)
+        {
+            _context.Add(newRestaurant);
+            _context.SaveChanges();
+        }
+
+        public IEnumerable<Restaurant> GetAll()
+        {
+            return _context.Restaurants.ToList();
+        }
+
+        public Restaurant Get(int id)
+        {
+            return _context.Restaurants.FirstOrDefault(r => r.Id == id);
+        }
+
+    }
+
 
     public class InMemoryRestaurantData : IRestaurantData
     {

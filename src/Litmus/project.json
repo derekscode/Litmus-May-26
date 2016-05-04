@@ -19,11 +19,15 @@
     "Microsoft.Extensions.Logging": "1.0.0-rc1-final",
     "Microsoft.Extensions.Logging.Console": "1.0.0-rc1-final",
     "Microsoft.Extensions.Logging.Debug": "1.0.0-rc1-final",
-    "Microsoft.VisualStudio.Web.BrowserLink.Loader": "14.0.0-rc1-final"
+    "Microsoft.VisualStudio.Web.BrowserLink.Loader": "14.0.0-rc1-final",
+    "AutoMapper": "4.0.4",
+    "EntityFramework.MicrosoftSqlServer": "7.0.0-rc1-final",
+    "EntityFramework.Commands":  "7.0.0-rc1-final" 
   },
 
   "commands": {
-    "web": "Microsoft.AspNet.Server.Kestrel --server.urls=http://localhost:5000"
+    "web": "Microsoft.AspNet.Server.Kestrel --server.urls=http://localhost:5000",
+    "ef": "EntityFramework.Commands"
   },
 
   "frameworks": {

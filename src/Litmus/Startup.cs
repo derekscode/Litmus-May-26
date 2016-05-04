@@ -1,12 +1,14 @@
-﻿using Litmus.Services;
+﻿
+using Litmus.Entities;
+using Litmus.Services;
 using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Hosting;
 using Microsoft.AspNet.Http;
+using Microsoft.Data.Entity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Serialization;
-
 
 namespace Litmus
 {
@@ -33,18 +35,27 @@ namespace Litmus
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddMvc()
+               .AddJsonOptions(options =>
+               {
+                   options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+               });
+            services.AddCors();
+
+            services.AddEntityFramework()
+                    .AddSqlServer()
+                    .AddDbContext<LitmusDbContext>(options => options.UseSqlServer(Configuration["database:connection"]));
+
             // Add framework services.
             services.AddApplicationInsightsTelemetry(Configuration);
 
             services.AddSingleton(provider => Configuration);
             services.AddSingleton<IGreeter, Greeter>();
-            services.AddScoped<IRestaurantData, InMemoryRestaurantData>();
-            services.AddScoped<ICardData, InMemoryCardData>();
+            services.AddScoped<IRestaurantData, SqlRestaurantData>();
 
-            services.AddMvc().AddJsonOptions(options =>
-            {
-                options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
-            });
+            services.AddScoped<ICardData, SqlCardData>();
+
+
 
         }
 
@@ -72,22 +83,20 @@ namespace Litmus
 
             app.UseFileServer();
 
+            //Mapper.Initialize(config => { config.CreateMap<Trip, TripViewModel>().ReverseMap(); });
+
+            app.UseCors(builder =>
+            builder.AllowAnyOrigin()
+                   .AllowAnyHeader()
+                   .AllowAnyMethod()
+            );
+
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
-
-            //app.UseMvcWithDefaultRoute();
-
-            //app.Run(async (context) =>
-            //{
-            //    var greeting = greeter.GetGreeting();
-            //    await context.Response.WriteAsync(greeting);
-            //});
-
-
         }
 
         // Entry point for the application.

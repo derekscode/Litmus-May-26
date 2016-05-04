@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using Litmus.Entities;
 using Litmus.Services;
+using Microsoft.AspNet.Authorization;
 using Microsoft.AspNet.Mvc;
 
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
@@ -13,14 +15,13 @@ namespace Litmus.Controllers
     [Route("api/[controller]")]
     public class CardController : Controller
     {
-
         private ICardData _cardData;
 
         public CardController(ICardData cardData)
         {
             _cardData = cardData;
         }
-        
+
         // GET: api/card
         [HttpGet]
         public Card[] Get()
@@ -39,8 +40,25 @@ namespace Litmus.Controllers
 
         // POST api/card
         [HttpPost]
-        public void Post([FromBody]string value)
+        public IActionResult Post([FromBody] Card card)
         {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    _cardData.Add(card);
+
+                    Response.StatusCode = (int)HttpStatusCode.Created;
+                    return Json(new { Data = card });
+                }
+            }
+            catch (Exception ex)
+            {
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                return Json(new { Message = ex.Message });
+            }
+
+            return Json("Failed");
         }
 
         // PUT api/card/5
