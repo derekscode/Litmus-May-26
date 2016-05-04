@@ -9,6 +9,7 @@ namespace Litmus.Services
         IEnumerable<Card> GetAll();
         Card Get(int id);
         void Add(Card newCard);
+        int Commit();
     }
 
     public class SqlCardData : ICardData
@@ -36,6 +37,16 @@ namespace Litmus.Services
             return _context.Cards.FirstOrDefault(c => c.Id == id);
         }
 
+        public int Commit()
+        {
+            _context.SaveChanges();
+            return 0;
+        }
+
+        public void Update(Card card)
+        {
+            //_context[card.Id] = card;
+        }
     }
 
     public class InMemoryCardData : ICardData
@@ -112,6 +123,11 @@ namespace Litmus.Services
         {
             newCard.Id = _cards.Max(r => r.Id) + 1;
             _cards.Add(newCard);
+        }
+
+        public int Commit()
+        {
+            return 0;
         }
     }
 }

@@ -40,7 +40,7 @@ namespace Litmus.Controllers
 
         // POST api/card
         [HttpPost]
-        public IActionResult Post([FromBody] Card card)
+        public IActionResult Create([FromBody] Card card)
         {
             try
             {
@@ -61,10 +61,20 @@ namespace Litmus.Controllers
             return Json("Failed");
         }
 
-        // PUT api/card/5
+        // PUT api/card/1
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
+        public ActionResult Update(int id, [FromBody] Card updatedCard)
         {
+            if (updatedCard == null || updatedCard.Id != id)
+            {
+                return HttpBadRequest();
+            }
+
+            // flesh this out using: http://docs.asp.net/en/latest/tutorials/first-web-api.html#implement-the-other-crud-operations
+
+
+
+            return Json("");
         }
 
         // DELETE api/card/5
