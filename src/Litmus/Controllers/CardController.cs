@@ -73,8 +73,9 @@ namespace Litmus.Controllers
             // flesh this out using: http://docs.asp.net/en/latest/tutorials/first-web-api.html#implement-the-other-crud-operations
 
             _cardData.Update(updatedCard);
-            return new NoContentResult();
 
+            Response.StatusCode = (int)HttpStatusCode.OK;
+            return Json("Complete!");
         }
 
         // DELETE api/card/1

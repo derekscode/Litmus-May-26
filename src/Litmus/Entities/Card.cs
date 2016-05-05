@@ -10,6 +10,7 @@ namespace Litmus.Entities
         public int Id { get; set; }
         public string CardId { get; set; }
         public string State  { get; set; }
+
         public string Version { get; set; }
         public string Orientation { get; set; }
         public string Expiration { get; set; }
