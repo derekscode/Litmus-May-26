@@ -23,12 +23,6 @@ namespace Litmus.Services
             _context = context;
         }
 
-        public void Add(Card newCard)
-        {
-            _context.Add(newCard);
-            _context.SaveChanges();
-        }
-
         public IEnumerable<Card> GetAll()
         {
             return _context.Cards.ToList();
@@ -37,6 +31,12 @@ namespace Litmus.Services
         public Card Get(int id)
         {
             return _context.Cards.FirstOrDefault(c => c.Id == id);
+        }
+
+        public void Add(Card newCard)
+        {
+            _context.Add(newCard);
+            _context.SaveChanges();
         }
 
         public int Commit()

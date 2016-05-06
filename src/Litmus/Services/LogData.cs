@@ -18,24 +18,28 @@ namespace Litmus.Services
 
     public class SqlLogData : ILogData
     {
+        private LitmusDbContext _context;
+
         public IEnumerable<Log> GetAll()
         {
-            throw new NotImplementedException();
+            return _context.Logs.ToList();
         }
 
         public Log Get(int id)
         {
-            throw new NotImplementedException();
+            return _context.Logs.FirstOrDefault(c => c.Id == id);
         }
 
         public void Add(Log newLog)
         {
-            throw new NotImplementedException();
+            _context.Add(newLog);
+            _context.SaveChanges();
         }
 
         public int Commit()
         {
-            throw new NotImplementedException();
+            _context.SaveChanges();
+            return 0;
         }
     }
 }
