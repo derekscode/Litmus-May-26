@@ -16,10 +16,12 @@ namespace Litmus.Controllers
     public class CardController : Controller
     {
         private ICardData _cardData;
+        private ILogData _logData;
 
-        public CardController(ICardData cardData)
+        public CardController(ICardData cardData, ILogData logData)
         {
             _cardData = cardData;
+            _logData = logData;
         }
 
         // GET: api/card
@@ -30,7 +32,7 @@ namespace Litmus.Controllers
             return cards.ToArray();
         }
 
-        // GET api/card/5
+        // GET api/card/1
         [HttpGet("{id}")]
         public Card Get(int id)
         {
@@ -48,6 +50,10 @@ namespace Litmus.Controllers
                 {
                     _cardData.Add(card);
 
+                    Log newLog = CreateNewLog(card);
+                    _logData.Add(newLog);
+
+
                     Response.StatusCode = (int)HttpStatusCode.Created;
                     return Json(new { Data = card });
                 }
@@ -59,6 +65,21 @@ namespace Litmus.Controllers
             }
 
             return Json("Failed");
+        }
+
+        private Log CreateNewLog(Card card)
+        {
+            Log newLog = new Log()
+            {
+                DateChanged = DateTime.Now,
+
+                CardId = card.CardId,
+                OldCard = _cardData.Get(card.Id),
+                NewCard =  card,
+                User = "John Smith"
+            };
+
+            return newLog;
         }
 
         // PUT api/card/1
