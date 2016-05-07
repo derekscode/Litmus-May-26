@@ -7,6 +7,7 @@ using Litmus.Entities;
 using Litmus.Services;
 using Microsoft.AspNet.Authorization;
 using Microsoft.AspNet.Mvc;
+using Newtonsoft.Json;
 
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -49,10 +50,7 @@ namespace Litmus.Controllers
                 if (ModelState.IsValid)
                 {
                     _cardData.Add(card);
-
-                    Log newLog = CreateNewLog(card);
-                    _logData.Add(newLog);
-
+                    CreateNewLog(card, null);
 
                     Response.StatusCode = (int)HttpStatusCode.Created;
                     return Json(new { Data = card });
@@ -67,21 +65,6 @@ namespace Litmus.Controllers
             return Json("Failed");
         }
 
-        private Log CreateNewLog(Card card)
-        {
-            Log newLog = new Log()
-            {
-                DateChanged = DateTime.Now,
-
-                CardId = card.CardId,
-                OldCard = _cardData.Get(card.Id),
-                NewCard =  card,
-                User = "John Smith"
-            };
-
-            return newLog;
-        }
-
         // PUT api/card/1
         [HttpPut("{id}")]
         public ActionResult Update(int id, [FromBody] Card updatedCard)
@@ -91,9 +74,14 @@ namespace Litmus.Controllers
                 return HttpBadRequest();
             }
 
-            // flesh this out using: http://docs.asp.net/en/latest/tutorials/first-web-api.html#implement-the-other-crud-operations
-
+            Card oldCard = _cardData.Get(id);
+            
             _cardData.Update(updatedCard);
+
+            var old = oldCard.State;
+            var oldplus1 = updatedCard.State;
+            
+            CreateNewLog(updatedCard, oldCard);
 
             Response.StatusCode = (int)HttpStatusCode.OK;
             return Json("Complete!");
@@ -104,6 +92,23 @@ namespace Litmus.Controllers
         public void Delete(int id)
         {
             _cardData.Delete(id);
+        }
+
+        public void CreateNewLog(Card newCard, Card oldCard)
+        {
+            Log newLog = new Log()
+            {
+                DateChanged = DateTime.Now,
+
+                CardId = newCard.CardId,
+                //OldCard = JsonConvert.SerializeObject(oldCard),
+                //NewCard = JsonConvert.SerializeObject(newCard),
+                OldCard = oldCard.State,
+                NewCard = newCard.State,
+                User = "John Smith"
+            };
+
+            _logData.Add(newLog);
         }
     }
 }

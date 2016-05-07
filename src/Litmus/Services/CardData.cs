@@ -30,7 +30,9 @@ namespace Litmus.Services
 
         public Card Get(int id)
         {
-            return _context.Cards.FirstOrDefault(c => c.Id == id);
+            Card card = _context.Cards.FirstOrDefault(c => c.Id == id);
+            
+            return card;
         }
 
         public void Add(Card newCard)

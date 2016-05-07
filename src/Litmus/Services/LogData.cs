@@ -20,6 +20,11 @@ namespace Litmus.Services
     {
         private LitmusDbContext _context;
 
+        public SqlLogData(LitmusDbContext context)
+        {
+            _context = context;
+        }
+
         public IEnumerable<Log> GetAll()
         {
             return _context.Logs.ToList();

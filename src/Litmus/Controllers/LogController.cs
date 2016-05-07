@@ -36,30 +36,8 @@ namespace Litmus.Controllers
             return log;
         }
 
-        // POST api/log
-        [HttpPost]
-        public IActionResult Create([FromBody] Log log)
-        {
-            try
-            {
-                if (ModelState.IsValid)
-                {
-                    _logData.Add(log);
-
-                    Response.StatusCode = (int)HttpStatusCode.Created;
-                    return Json(new { Data = log });
-                }
-            }
-            catch (Exception ex)
-            {
-                Response.StatusCode = (int)HttpStatusCode.BadRequest;
-                return Json(new { Message = ex.Message });
-            }
-
-            return Json("Failed");
-        }
-
-        // no PUT or DELETE needed for Log
+        // POST is done in CardController
+        // PUT and Delete not needed
         
     }
 }

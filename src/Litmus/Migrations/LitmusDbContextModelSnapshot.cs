@@ -47,6 +47,24 @@ namespace Litmus.Migrations
 
                     b.HasKey("Id");
                 });
+
+            modelBuilder.Entity("Litmus.Entities.Log", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("CardId");
+
+                    b.Property<DateTime>("DateChanged");
+
+                    b.Property<string>("NewCard");
+
+                    b.Property<string>("OldCard");
+
+                    b.Property<string>("User");
+
+                    b.HasKey("Id");
+                });
         }
     }
 }

@@ -8,8 +8,8 @@ using Litmus.Entities;
 namespace Litmus.Migrations
 {
     [DbContext(typeof(LitmusDbContext))]
-    [Migration("20160503234116_v2")]
-    partial class v2
+    [Migration("20160506221308_v1")]
+    partial class v1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -45,6 +45,24 @@ namespace Litmus.Migrations
                     b.Property<string>("State");
 
                     b.Property<string>("Version");
+
+                    b.HasKey("Id");
+                });
+
+            modelBuilder.Entity("Litmus.Entities.Log", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("CardId");
+
+                    b.Property<DateTime>("DateChanged");
+
+                    b.Property<string>("NewCard");
+
+                    b.Property<string>("OldCard");
+
+                    b.Property<string>("User");
 
                     b.HasKey("Id");
                 });

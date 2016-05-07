@@ -13,10 +13,10 @@ namespace Litmus.Entities
 
         // Card
         public string CardId { get; set; }
-        public Card OldCard { get; set; }
-        public Card NewCard { get; set; }
 
-        
+        public string OldCard { get; set; }
+        public string NewCard { get; set; }
+
         public string User { get; set; }
     }
 }
