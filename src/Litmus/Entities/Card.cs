@@ -21,5 +21,10 @@ namespace Litmus.Entities
         public bool HasMagStripe { get; set; }
         public bool HasBarcode { get; set; }
         public string Location { get; set; }
+
+        public Card ShallowCopy()
+        {
+            return (Card) this.MemberwiseClone();
+        }
     }
 }

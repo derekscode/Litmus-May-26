@@ -74,12 +74,9 @@ namespace Litmus.Controllers
                 return HttpBadRequest();
             }
 
-            Card oldCard = _cardData.Get(id);
+            Card oldCard = _cardData.Get(id).ShallowCopy();
             
             _cardData.Update(updatedCard);
-
-            var old = oldCard.State;
-            var oldplus1 = updatedCard.State;
             
             CreateNewLog(updatedCard, oldCard);
 
@@ -101,10 +98,8 @@ namespace Litmus.Controllers
                 DateChanged = DateTime.Now,
 
                 CardId = newCard.CardId,
-                //OldCard = JsonConvert.SerializeObject(oldCard),
-                //NewCard = JsonConvert.SerializeObject(newCard),
-                OldCard = oldCard.State,
-                NewCard = newCard.State,
+                OldCard = JsonConvert.SerializeObject(oldCard),
+                NewCard = JsonConvert.SerializeObject(newCard),
                 User = "John Smith"
             };
 
