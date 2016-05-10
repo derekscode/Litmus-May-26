@@ -11,7 +11,6 @@ namespace Litmus.Services
         IEnumerable<Log> GetAll();
         Log Get(int id);
         void Add(Log newLog);
-        int Commit();
 
         // a Log record does not need update or delete methods 
     }
@@ -41,10 +40,5 @@ namespace Litmus.Services
             _context.SaveChanges();
         }
 
-        public int Commit()
-        {
-            _context.SaveChanges();
-            return 0;
-        }
     }
 }

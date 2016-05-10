@@ -75,9 +75,7 @@ namespace Litmus.Controllers
             }
 
             Card oldCard = _cardData.Get(id).ShallowCopy();
-            
             _cardData.Update(updatedCard);
-            
             CreateNewLog(updatedCard, oldCard);
 
             Response.StatusCode = (int)HttpStatusCode.OK;
@@ -86,9 +84,13 @@ namespace Litmus.Controllers
 
         // DELETE api/card/1
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public ActionResult Delete(int id)
         {
+            Card oldCard = _cardData.Get(id).ShallowCopy();
+            CreateNewLog(null, oldCard);
+
             _cardData.Delete(id);
+            return Json("Complete!");
         }
 
         public void CreateNewLog(Card newCard, Card oldCard)
@@ -97,7 +99,7 @@ namespace Litmus.Controllers
             {
                 DateChanged = DateTime.Now,
 
-                CardId = newCard.CardId,
+                CardId = newCard == null ? oldCard.CardId : newCard.CardId,
                 OldCard = JsonConvert.SerializeObject(oldCard),
                 NewCard = JsonConvert.SerializeObject(newCard),
                 User = "John Smith"
