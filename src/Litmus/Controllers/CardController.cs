@@ -2,10 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Security.Principal;
 using System.Threading.Tasks;
 using Litmus.Entities;
 using Litmus.Services;
 using Microsoft.AspNet.Authorization;
+using Microsoft.AspNet.Http;
+using Microsoft.AspNet.Http.Internal;
 using Microsoft.AspNet.Mvc;
 using Newtonsoft.Json;
 
@@ -95,14 +98,16 @@ namespace Litmus.Controllers
 
         public void CreateNewLog(Card newCard, Card oldCard)
         {
+
+            string windowsUser = WindowsIdentity.GetCurrent().Name;
+
             Log newLog = new Log()
             {
-                DateChanged = DateTime.Now,
-
                 CardId = newCard == null ? oldCard.CardId : newCard.CardId,
+                DateChanged = DateTime.Now,
                 OldCard = JsonConvert.SerializeObject(oldCard),
                 NewCard = JsonConvert.SerializeObject(newCard),
-                User = "John Smith"
+                User = WindowsIdentity.GetCurrent().Name
             };
 
             _logData.Add(newLog);

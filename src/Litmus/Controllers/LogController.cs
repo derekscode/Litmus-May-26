@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using Litmus.Entities;
@@ -24,9 +25,14 @@ namespace Litmus.Controllers
         [HttpGet]
         public Log[] Get()
         {
-            var logs = _logData.GetAll().ToArray();
+            var logs = _logData.GetAll().ToList();
 
-            return logs;
+            var result = logs
+                .OrderByDescending(x => x.CardId)
+                .ThenByDescending(x => x.DateChanged);
+
+
+            return result.ToArray();
         }
 
         // GET api/log/1
@@ -39,6 +45,6 @@ namespace Litmus.Controllers
 
         // POST is done in CardController
         // PUT and Delete not needed
-        
+
     }
 }

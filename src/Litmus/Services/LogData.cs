@@ -26,7 +26,9 @@ namespace Litmus.Services
 
         public IEnumerable<Log> GetAll()
         {
-            return _context.Logs.ToList();
+            var logs = _context.Logs.ToList();
+
+            return logs;
         }
 
         public Log Get(int id)
