@@ -24,8 +24,9 @@ namespace Litmus.Controllers
         [HttpGet]
         public Log[] Get()
         {
-            var logs = _logData.GetAll();
-            return logs.ToArray();
+            var logs = _logData.GetAll().ToArray();
+
+            return logs;
         }
 
         // GET api/log/1
