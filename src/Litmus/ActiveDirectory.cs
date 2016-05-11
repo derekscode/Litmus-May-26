@@ -11,6 +11,9 @@ namespace Litmus
     {
         //var test = User.IsInRole("S-1-1-0");
 
+        // put this above controller action:
+        //[Authorize(Roles = ActiveDirectory.CORPecoQADBRead_G)]
+
         public const string CORPecoQADBRead_G = "S-1-5-21-102932503-109117628-3773961456-41001";
         public const string ecoATMLitmusUser = "";
         public const string ecoATMLitmusAdmin = "";

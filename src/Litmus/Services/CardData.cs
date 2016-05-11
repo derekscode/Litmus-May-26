@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Litmus.Entities;
 
@@ -9,7 +10,6 @@ namespace Litmus.Services
         IEnumerable<Card> GetAll();
         Card Get(int id);
         void Add(Card newCard);
-        int Commit();
         void Update(Card newCard);
         void Delete(int id);
     }
@@ -37,14 +37,10 @@ namespace Litmus.Services
 
         public void Add(Card newCard)
         {
+            newCard.LastChanged = DateTime.Now;
+
             _context.Add(newCard);
             _context.SaveChanges();
-        }
-
-        public int Commit()
-        {
-            _context.SaveChanges();
-            return 0;
         }
 
         public void Update(Card newCard)
@@ -55,6 +51,7 @@ namespace Litmus.Services
             {
                 oldCard.CardId = newCard.CardId;
                 oldCard.State = newCard.State;
+                oldCard.LastChanged = DateTime.Now;
                 _context.SaveChanges();
             }
         }
@@ -142,11 +139,6 @@ namespace Litmus.Services
         {
             newCard.Id = _cards.Max(r => r.Id) + 1;
             _cards.Add(newCard);
-        }
-
-        public int Commit()
-        {
-            return 0;
         }
 
         public void Update(Card card)

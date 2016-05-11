@@ -9,7 +9,7 @@ namespace Litmus.Entities
     {
         public int Id { get; set; }
         public string CardId { get; set; }
-        public string State  { get; set; }
+        public string State { get; set; }
 
         public string Version { get; set; }
         public string Orientation { get; set; }
@@ -22,9 +22,16 @@ namespace Litmus.Entities
         public bool HasBarcode { get; set; }
         public string Location { get; set; }
 
+        public DateTime LastChanged { get; set; }
+        public string DisplayLastChanged
+        {
+            get { return LastChanged.ToString("G"); }
+            set { }
+        }
+
         public Card ShallowCopy()
         {
-            return (Card) this.MemberwiseClone();
+            return (Card)this.MemberwiseClone();
         }
     }
 }

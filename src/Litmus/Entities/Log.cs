@@ -15,11 +15,7 @@ namespace Litmus.Entities
 
         public string DisplayDateChanged
         {
-            get
-            {
-                var change = DateChanged;
-                return change.ToString("G");
-            }
+            get { return DateChanged.ToString("G"); }
             set { }
         }
 
@@ -27,7 +23,7 @@ namespace Litmus.Entities
         public string NewCard { get; set; }
         public string User { get; set; }
 
-      
+
 
 
     }

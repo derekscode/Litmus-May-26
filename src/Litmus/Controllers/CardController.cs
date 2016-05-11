@@ -30,10 +30,15 @@ namespace Litmus.Controllers
 
         // GET: api/card
         [HttpGet]
+        
         public Card[] Get()
         {
-            var cards = _cardData.GetAll();
-            return cards.ToArray();
+            var cards = _cardData.GetAll().ToList();
+
+            var result = cards
+                            .OrderByDescending(x => x.LastChanged);
+
+            return result.ToArray();
         }
 
         // GET api/card/1
@@ -41,6 +46,7 @@ namespace Litmus.Controllers
         public Card Get(int id)
         {
             var card = _cardData.Get(id);
+
             return card;
         }
 
@@ -78,6 +84,9 @@ namespace Litmus.Controllers
             }
 
             Card oldCard = _cardData.Get(id).ShallowCopy();
+
+            updatedCard.LastChanged = DateTime.Now;
+
             _cardData.Update(updatedCard);
             CreateNewLog(updatedCard, oldCard);
 
