@@ -28,8 +28,8 @@ namespace Litmus.Controllers
             var logs = _logData.GetAll().ToList();
 
             var result = logs
-                .OrderByDescending(x => x.CardId)
-                .ThenByDescending(x => x.DateChanged);
+                .OrderByDescending(x => x.DateChanged)
+                .ThenByDescending(x => x.CardId);
 
 
             return result.ToArray();
