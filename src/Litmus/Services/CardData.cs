@@ -51,6 +51,16 @@ namespace Litmus.Services
             {
                 oldCard.CardId = newCard.CardId;
                 oldCard.State = newCard.State;
+                oldCard.Version = newCard.Version;
+                oldCard.Orientation = newCard.Orientation;
+                oldCard.Expiration = newCard.Expiration;
+                oldCard.BirthYear= newCard.BirthYear;
+                oldCard.Notes= newCard.Notes;
+                oldCard.IsDamaged= newCard.IsDamaged;
+                oldCard.IsPaper= newCard.IsPaper;
+                oldCard.HasMagStripe = newCard.HasMagStripe;
+                oldCard.HasBarcode = newCard.HasBarcode;
+                oldCard.Location= newCard.Location;
                 oldCard.LastChanged = DateTime.Now;
                 _context.SaveChanges();
             }
