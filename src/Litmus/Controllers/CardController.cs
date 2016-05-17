@@ -59,7 +59,6 @@ namespace Litmus.Controllers
                 if (ModelState.IsValid)
                 {
                     _cardData.Add(card);
-                    CreateNewLog(card, null);
 
                     Response.StatusCode = (int)HttpStatusCode.Created;
                     return Json(new { Data = card });
@@ -95,21 +94,18 @@ namespace Litmus.Controllers
         }
 
         // DELETE api/card/1
-        [HttpDelete("{id}")]
-        public ActionResult Delete(int id)
-        {
-            Card oldCard = _cardData.Get(id).ShallowCopy();
-            CreateNewLog(null, oldCard);
+        //[HttpDelete("{id}")]
+        //public ActionResult Delete(int id)
+        //{
+        //    Card oldCard = _cardData.Get(id).ShallowCopy();
+        //    CreateNewLog(null, oldCard);
 
-            _cardData.Delete(id);
-            return Json("Complete!");
-        }
+        //    _cardData.Delete(id);
+        //    return Json("Complete!");
+        //}
 
         public void CreateNewLog(Card newCard, Card oldCard)
         {
-
-            string windowsUser = WindowsIdentity.GetCurrent().Name;
-
             Log newLog = new Log()
             {
                 CardId = newCard == null ? oldCard.CardId : newCard.CardId,
