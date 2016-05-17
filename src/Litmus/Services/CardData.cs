@@ -49,7 +49,7 @@ namespace Litmus.Services
 
             if (oldCard != null)
             {
-                oldCard.CardId = newCard.CardId;
+                oldCard.IdNumber = newCard.IdNumber;
                 oldCard.State = newCard.State;
                 oldCard.Version = newCard.Version;
                 oldCard.Orientation = newCard.Orientation;
@@ -86,7 +86,7 @@ namespace Litmus.Services
                 new Card()
                 {
                     Id = 1,
-                    CardId = "C3820335",
+                    IdNumber = "C3820335",
                     State = "CA",
                     Version = "2016R2",
                     Orientation = "L",
@@ -102,7 +102,7 @@ namespace Litmus.Services
                 new Card()
                 {
                     Id = 2,
-                    CardId = "K349223",
+                    IdNumber = "K349223",
                     State = "KS",
                     Version = "2015R1",
                     Orientation = "P",
@@ -118,7 +118,7 @@ namespace Litmus.Services
                 new Card()
                 {
                     Id = 3,
-                    CardId = "I34832092",
+                    IdNumber = "I34832092",
                     State = "IL",
                     Version = "2011R2",
                     Orientation = "L",

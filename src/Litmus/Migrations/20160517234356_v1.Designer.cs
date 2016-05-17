@@ -8,7 +8,7 @@ using Litmus.Entities;
 namespace Litmus.Migrations
 {
     [DbContext(typeof(LitmusDbContext))]
-    [Migration("20160506221308_v1")]
+    [Migration("20160517234356_v1")]
     partial class v1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -22,9 +22,11 @@ namespace Litmus.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<bool>("Active");
+
                     b.Property<int>("BirthYear");
 
-                    b.Property<string>("CardId");
+                    b.Property<string>("DisplayLastChanged");
 
                     b.Property<string>("Expiration");
 
@@ -32,9 +34,13 @@ namespace Litmus.Migrations
 
                     b.Property<bool>("HasMagStripe");
 
+                    b.Property<string>("IdNumber");
+
                     b.Property<bool>("IsDamaged");
 
                     b.Property<bool>("IsPaper");
+
+                    b.Property<DateTime>("LastChanged");
 
                     b.Property<string>("Location");
 
@@ -57,6 +63,8 @@ namespace Litmus.Migrations
                     b.Property<string>("CardId");
 
                     b.Property<DateTime>("DateChanged");
+
+                    b.Property<string>("DisplayDateChanged");
 
                     b.Property<string>("NewCard");
 

@@ -21,9 +21,9 @@ namespace Litmus.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("BirthYear");
+                    b.Property<bool>("Active");
 
-                    b.Property<string>("CardId");
+                    b.Property<int>("BirthYear");
 
                     b.Property<string>("DisplayLastChanged");
 
@@ -32,6 +32,8 @@ namespace Litmus.Migrations
                     b.Property<bool>("HasBarcode");
 
                     b.Property<bool>("HasMagStripe");
+
+                    b.Property<string>("IdNumber");
 
                     b.Property<bool>("IsDamaged");
 

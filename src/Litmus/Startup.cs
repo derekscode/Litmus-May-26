@@ -50,8 +50,6 @@ namespace Litmus
             services.AddApplicationInsightsTelemetry(Configuration);
 
             services.AddSingleton(provider => Configuration);
-            services.AddSingleton<IGreeter, Greeter>();
-            services.AddScoped<IRestaurantData, SqlRestaurantData>();
 
             services.AddScoped<ICardData, SqlCardData>();
             services.AddScoped<ILogData, SqlLogData>();
@@ -61,7 +59,7 @@ namespace Litmus
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, IGreeter greeter)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();

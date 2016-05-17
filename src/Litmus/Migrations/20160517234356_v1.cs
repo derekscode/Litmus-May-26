@@ -15,13 +15,16 @@ namespace Litmus.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Active = table.Column<bool>(nullable: false),
                     BirthYear = table.Column<int>(nullable: false),
-                    CardId = table.Column<string>(nullable: true),
+                    DisplayLastChanged = table.Column<string>(nullable: true),
                     Expiration = table.Column<string>(nullable: true),
                     HasBarcode = table.Column<bool>(nullable: false),
                     HasMagStripe = table.Column<bool>(nullable: false),
+                    IdNumber = table.Column<string>(nullable: true),
                     IsDamaged = table.Column<bool>(nullable: false),
                     IsPaper = table.Column<bool>(nullable: false),
+                    LastChanged = table.Column<DateTime>(nullable: false),
                     Location = table.Column<string>(nullable: true),
                     Notes = table.Column<string>(nullable: true),
                     Orientation = table.Column<string>(nullable: true),
@@ -40,6 +43,7 @@ namespace Litmus.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     CardId = table.Column<string>(nullable: true),
                     DateChanged = table.Column<DateTime>(nullable: false),
+                    DisplayDateChanged = table.Column<string>(nullable: true),
                     NewCard = table.Column<string>(nullable: true),
                     OldCard = table.Column<string>(nullable: true),
                     User = table.Column<string>(nullable: true)

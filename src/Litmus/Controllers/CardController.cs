@@ -108,7 +108,7 @@ namespace Litmus.Controllers
         {
             Log newLog = new Log()
             {
-                CardId = newCard == null ? oldCard.CardId : newCard.CardId,
+                CardId = newCard == null ? oldCard.IdNumber : newCard.IdNumber,
                 DateChanged = DateTime.Now,
                 OldCard = JsonConvert.SerializeObject(oldCard),
                 NewCard = JsonConvert.SerializeObject(newCard),

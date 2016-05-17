@@ -8,7 +8,7 @@ namespace Litmus.Entities
     public class Card
     {
         public int Id { get; set; }
-        public string CardId { get; set; }
+        public string IdNumber { get; set; }
         public string State { get; set; }
 
         public string Version { get; set; }
@@ -21,6 +21,8 @@ namespace Litmus.Entities
         public bool HasMagStripe { get; set; }
         public bool HasBarcode { get; set; }
         public string Location { get; set; }
+
+        public bool Active { get; set; }
 
         public DateTime LastChanged { get; set; }
         public string DisplayLastChanged
