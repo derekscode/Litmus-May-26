@@ -128,7 +128,7 @@ namespace Litmus.Controllers
             {
                 CardIdNumber = newCard == null ? oldCard.IdNumber : newCard.IdNumber,
                 CardId = oldCard.Id,
-                DateChanged = DateTime.Now,
+                DateChanged = DateTime.UtcNow,
                 OldCard = JsonConvert.SerializeObject(oldCard),
                 NewCard = JsonConvert.SerializeObject(newCard),
                 User = WindowsIdentity.GetCurrent().Name

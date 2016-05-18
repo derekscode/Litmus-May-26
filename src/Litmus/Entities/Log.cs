@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using Microsoft.AspNet.Http;
 
 namespace Litmus.Entities
@@ -16,7 +17,7 @@ namespace Litmus.Entities
 
         public string DisplayDateChanged
         {
-            get { return DateChanged.ToString("G"); }
+            get { return DateChanged.ToLocalTime().ToString(CultureInfo.CurrentCulture); }
             set { }
         }
 
