@@ -8,7 +8,7 @@ using Litmus.Entities;
 namespace Litmus.Migrations
 {
     [DbContext(typeof(LitmusDbContext))]
-    [Migration("20160517234356_v1")]
+    [Migration("20160518174946_v1")]
     partial class v1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -60,7 +60,9 @@ namespace Litmus.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("CardId");
+                    b.Property<int>("CardId");
+
+                    b.Property<string>("CardIdNumber");
 
                     b.Property<DateTime>("DateChanged");
 

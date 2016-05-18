@@ -41,7 +41,8 @@ namespace Litmus.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    CardId = table.Column<string>(nullable: true),
+                    CardId = table.Column<int>(nullable: false),
+                    CardIdNumber = table.Column<string>(nullable: true),
                     DateChanged = table.Column<DateTime>(nullable: false),
                     DisplayDateChanged = table.Column<string>(nullable: true),
                     NewCard = table.Column<string>(nullable: true),

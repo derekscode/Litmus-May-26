@@ -9,7 +9,8 @@ namespace Litmus.Entities
         public int Id { get; set; }
 
         // Card
-        public string CardId { get; set; }
+        public int CardId { get; set; }
+        public string CardIdNumber { get; set; }
 
         public DateTime DateChanged { get; set; }
 

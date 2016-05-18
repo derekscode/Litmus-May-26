@@ -59,7 +59,9 @@ namespace Litmus.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("CardId");
+                    b.Property<int>("CardId");
+
+                    b.Property<string>("CardIdNumber");
 
                     b.Property<DateTime>("DateChanged");
 
