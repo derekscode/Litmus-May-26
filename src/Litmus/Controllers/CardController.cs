@@ -58,6 +58,8 @@ namespace Litmus.Controllers
             {
                 if (ModelState.IsValid)
                 {
+                    card.Active = true;
+
                     _cardData.Add(card);
 
                     Response.StatusCode = (int)HttpStatusCode.Created;
@@ -92,6 +94,22 @@ namespace Litmus.Controllers
             Response.StatusCode = (int)HttpStatusCode.OK;
             return Json("Complete!");
         }
+
+        //DELETE api/card/1
+        [HttpDelete("{id}")]
+        public ActionResult Delete(int id)
+        {
+            Card oldCard = _cardData.Get(id).ShallowCopy();
+
+            Card updatedCard = oldCard;
+            updatedCard.Active = false;
+
+            _cardData.Update(updatedCard);
+            CreateNewLog(updatedCard, oldCard);
+            
+            return Json("Complete!");
+        }
+
 
         // DELETE api/card/1
         //[HttpDelete("{id}")]

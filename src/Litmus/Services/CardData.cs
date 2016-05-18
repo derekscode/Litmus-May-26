@@ -25,7 +25,10 @@ namespace Litmus.Services
 
         public IEnumerable<Card> GetAll()
         {
-            return _context.Cards.ToList();
+
+            var activeCards = _context.Cards.ToList().Where(x => x.Active);
+
+            return activeCards;
         }
 
         public Card Get(int id)
@@ -62,6 +65,7 @@ namespace Litmus.Services
                 oldCard.HasBarcode = newCard.HasBarcode;
                 oldCard.Location= newCard.Location;
                 oldCard.LastChanged = DateTime.Now;
+                oldCard.Active = newCard.Active;
                 _context.SaveChanges();
             }
         }
