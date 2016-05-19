@@ -1,14 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Security.Principal;
-using System.Threading.Tasks;
 using Litmus.Entities;
 using Litmus.Services;
-using Microsoft.AspNet.Authorization;
-using Microsoft.AspNet.Http;
-using Microsoft.AspNet.Http.Internal;
 using Microsoft.AspNet.Mvc;
 using Newtonsoft.Json;
 

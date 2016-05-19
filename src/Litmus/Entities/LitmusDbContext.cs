@@ -6,5 +6,6 @@ namespace Litmus.Entities
     {
         public DbSet<Card> Cards { get; set; }
         public DbSet<Log> Logs { get; set; }
+        public DbSet<Location> Locations { get; set; }
     }
 }

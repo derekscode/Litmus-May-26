@@ -53,6 +53,7 @@ namespace Litmus
 
             services.AddScoped<ICardData, SqlCardData>();
             services.AddScoped<ILogData, SqlLogData>();
+            services.AddScoped<ILocationData, LocationData>();
 
 
 

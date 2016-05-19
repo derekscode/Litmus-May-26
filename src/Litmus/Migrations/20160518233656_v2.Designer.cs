@@ -8,9 +8,10 @@ using Litmus.Entities;
 namespace Litmus.Migrations
 {
     [DbContext(typeof(LitmusDbContext))]
-    partial class LitmusDbContextModelSnapshot : ModelSnapshot
+    [Migration("20160518233656_v2")]
+    partial class v2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "7.0.0-rc1-16348")
@@ -50,16 +51,6 @@ namespace Litmus.Migrations
                     b.Property<string>("State");
 
                     b.Property<string>("Version");
-
-                    b.HasKey("Id");
-                });
-
-            modelBuilder.Entity("Litmus.Entities.Location", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Name");
 
                     b.HasKey("Id");
                 });

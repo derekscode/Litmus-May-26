@@ -44,7 +44,7 @@ namespace Litmus.Controllers
         }
 
         // POST is done in CardController
-        // PUT and Delete not needed
+        // PUT and DELETE not needed
 
     }
 }
