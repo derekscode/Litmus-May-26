@@ -8,8 +8,8 @@ using Litmus.Entities;
 namespace Litmus.Migrations
 {
     [DbContext(typeof(LitmusDbContext))]
-    [Migration("20160518233800_v3")]
-    partial class v3
+    [Migration("20160519002544_v1")]
+    partial class v1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -32,7 +32,7 @@ namespace Litmus.Migrations
 
                     b.Property<bool>("HasBarcode");
 
-                    b.Property<bool>("HasMagStripe");
+                    b.Property<bool>("HasMagstripe");
 
                     b.Property<string>("IdNumber");
 

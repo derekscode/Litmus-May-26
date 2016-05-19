@@ -31,7 +31,7 @@ namespace Litmus.Migrations
 
                     b.Property<bool>("HasBarcode");
 
-                    b.Property<bool>("HasMagStripe");
+                    b.Property<bool>("HasMagstripe");
 
                     b.Property<string>("IdNumber");
 

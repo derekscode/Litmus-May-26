@@ -18,7 +18,7 @@ namespace Litmus.Entities
         public string Notes { get; set; }
         public bool IsDamaged { get; set; }
         public bool IsPaper { get; set; }
-        public bool HasMagStripe { get; set; }
+        public bool HasMagstripe { get; set; }
         public bool HasBarcode { get; set; }
         public string Location { get; set; }
 

@@ -20,7 +20,7 @@ namespace Litmus.Migrations
                     DisplayLastChanged = table.Column<string>(nullable: true),
                     Expiration = table.Column<string>(nullable: true),
                     HasBarcode = table.Column<bool>(nullable: false),
-                    HasMagStripe = table.Column<bool>(nullable: false),
+                    HasMagstripe = table.Column<bool>(nullable: false),
                     IdNumber = table.Column<string>(nullable: true),
                     IsDamaged = table.Column<bool>(nullable: false),
                     IsPaper = table.Column<bool>(nullable: false),
@@ -34,6 +34,18 @@ namespace Litmus.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Card", x => x.Id);
+                });
+            migrationBuilder.CreateTable(
+                name: "Location",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Location", x => x.Id);
                 });
             migrationBuilder.CreateTable(
                 name: "Log",
@@ -58,6 +70,7 @@ namespace Litmus.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable("Card");
+            migrationBuilder.DropTable("Location");
             migrationBuilder.DropTable("Log");
         }
     }

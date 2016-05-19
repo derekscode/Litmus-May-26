@@ -61,7 +61,7 @@ namespace Litmus.Services
                 oldCard.Notes= newCard.Notes;
                 oldCard.IsDamaged= newCard.IsDamaged;
                 oldCard.IsPaper= newCard.IsPaper;
-                oldCard.HasMagStripe = newCard.HasMagStripe;
+                oldCard.HasMagstripe = newCard.HasMagstripe;
                 oldCard.HasBarcode = newCard.HasBarcode;
                 oldCard.Location= newCard.Location;
                 oldCard.LastChanged = DateTime.Now;
@@ -99,7 +99,7 @@ namespace Litmus.Services
                     Notes = "Dirty back",
                     IsDamaged = true,
                     IsPaper = true,
-                    HasMagStripe = false,
+                    HasMagstripe = false,
                     HasBarcode = false,
                     Location = "IDV"
                 },
@@ -115,7 +115,7 @@ namespace Litmus.Services
                     Notes = "Under age",
                     IsDamaged = false,
                     IsPaper = true,
-                    HasMagStripe = true,
+                    HasMagstripe = true,
                     HasBarcode = false,
                     Location = "SD"
                 },
@@ -131,7 +131,7 @@ namespace Litmus.Services
                     Notes = "Customer contacted",
                     IsDamaged = true,
                     IsPaper = false,
-                    HasMagStripe = false,
+                    HasMagstripe = false,
                     HasBarcode = true,
                     Location = "MR"
                 },
