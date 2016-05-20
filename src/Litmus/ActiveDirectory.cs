@@ -22,14 +22,11 @@ namespace Litmus
         private const string GroupIAmIn = "S-1-5-21-102932503-109117628-3773961456-56053";
         private const string GroupIAmNotIn = "S-0";
 
-        // uncomment to set myself as User
         // maybe I shouldn't even have a User group, but just an Admin group
         public const string LitmusUser = GroupIAmIn;
         public const string LitmusAdmin = GroupIAmNotIn;
 
-        //// uncomment to set myself as Admin
-        //public const string LitmusUser = GroupIAmIn;
-        //public const string LitmusAdmin = GroupIAmIn;
+       
 
 
 
