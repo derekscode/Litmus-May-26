@@ -9,22 +9,40 @@ namespace Litmus
 {
     public class ActiveDirectory
     {
-        //var test = User.IsInRole("S-1-1-0");
+        //var test = User.IsInRole(ActiveDirectory.ecoATMLitmusUser);
 
         // put this above controller action:
         //[Authorize(Roles = ActiveDirectory.CORPecoQADBRead_G)]
 
+        // reference
         public const string CORPecoQADBRead_G = "S-1-5-21-102932503-109117628-3773961456-41001";
-        public const string ecoATMLitmusUser = "";
-        public const string ecoATMLitmusAdmin = "";
+        private const string ecoATMLitmusUser = "S-1-5-21-102932503-109117628-3773961456-56053";
+        private const string ecoATMLitmusAdmin = "";
+
+        private const string GroupIAmIn = "S-1-5-21-102932503-109117628-3773961456-56053";
+        private const string GroupIAmNotIn = "S-0";
+
+        // uncomment to set myself as User
+        // maybe I shouldn't even have a User group, but just an Admin group
+        public const string LitmusUser = GroupIAmIn;
+        public const string LitmusAdmin = GroupIAmNotIn;
+
+        //// uncomment to set myself as Admin
+        //public const string LitmusUser = GroupIAmIn;
+        //public const string LitmusAdmin = GroupIAmIn;
+
+
+
+
 
 
         // returns all AD groups with corresponding SIDs
-        public static Dictionary<string, string> GetGroups(HttpContext context)
+        public static Dictionary<string, string> GetGroups()
         {
-
             var dictionary = new Dictionary<string, string>();
-            var groups = ((WindowsIdentity)context.User.Identity).Groups;
+
+            var groups = WindowsIdentity.GetCurrent().Groups;
+
 
             foreach (var group in groups)
             {
@@ -40,5 +58,7 @@ namespace Litmus
             string group = new SecurityIdentifier(sid).Translate(typeof(NTAccount)).ToString();
             return group;
         }
+
+
     }
 }

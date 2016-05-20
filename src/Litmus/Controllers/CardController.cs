@@ -4,6 +4,8 @@ using System.Net;
 using System.Security.Principal;
 using Litmus.Entities;
 using Litmus.Services;
+using Microsoft.AspNet.Authorization;
+using Microsoft.AspNet.Http;
 using Microsoft.AspNet.Mvc;
 using Newtonsoft.Json;
 
@@ -25,9 +27,15 @@ namespace Litmus.Controllers
 
         // GET: api/card
         [HttpGet]
-        
+        [Authorize(Roles = ActiveDirectory.LitmusUser)]
         public Card[] Get()
         {
+            //----------- remove this later
+            //var groups = ActiveDirectory.GetGroups();
+
+            var test = User.IsInRole(ActiveDirectory.LitmusUser);
+            //----------- remove this later
+
             var cards = _cardData.GetAll().ToList();
 
             var result = cards
@@ -46,6 +54,7 @@ namespace Litmus.Controllers
         }
 
         // POST api/card
+        [Authorize(Roles = ActiveDirectory.LitmusAdmin)]
         [HttpPost]
         public IActionResult Create([FromBody] Card card)
         {
@@ -71,6 +80,7 @@ namespace Litmus.Controllers
         }
 
         // PUT api/card/1
+        [Authorize(Roles = ActiveDirectory.LitmusAdmin)]
         [HttpPut("{id}")]
         public ActionResult Update(int id, [FromBody] Card updatedCard)
         {
@@ -91,6 +101,7 @@ namespace Litmus.Controllers
         }
 
         //DELETE api/card/1
+        [Authorize(Roles = ActiveDirectory.LitmusAdmin)]
         [HttpDelete("{id}")]
         public ActionResult Delete(int id)
         {
@@ -101,21 +112,9 @@ namespace Litmus.Controllers
 
             _cardData.Update(updatedCard);
             CreateNewLog(updatedCard, oldCard);
-            
+
             return Json("Complete!");
         }
-
-
-        // DELETE api/card/1
-        //[HttpDelete("{id}")]
-        //public ActionResult Delete(int id)
-        //{
-        //    Card oldCard = _cardData.Get(id).ShallowCopy();
-        //    CreateNewLog(null, oldCard);
-
-        //    _cardData.Delete(id);
-        //    return Json("Complete!");
-        //}
 
         public void CreateNewLog(Card newCard, Card oldCard)
         {

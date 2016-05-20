@@ -9,7 +9,6 @@ namespace Litmus.Controllers
 {
     public class HomeController : Controller
     {
-        [Authorize(Roles = ActiveDirectory.CORPecoQADBRead_G)]
         public IActionResult Index()
         {
             return View();
