@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Security.Principal;
@@ -25,17 +26,25 @@ namespace Litmus.Controllers
             _logData = logData;
         }
 
-        // GET: api/card
-        [HttpGet]
-        //[Authorize(Roles = ActiveDirectory.LitmusUser)]
-        public Card[] Get()
+        // api/card/UserIsAdmin
+        [HttpGet("UserIsAdmin")]
+        public bool UserIsAdmin()
         {
             //----------- remove this later
             //var groups = ActiveDirectory.GetGroups();
 
-            var test = User.IsInRole(ActiveDirectory.LitmusUser);
             //----------- remove this later
+            
+            bool userIsAdmin = User.IsInRole(ActiveDirectory.Admin);   
+            return userIsAdmin;
+        }
 
+
+        // GET: api/card
+        [HttpGet]
+        //[Authorize(Roles = ActiveDirectory.User)]
+        public Card[] Get()
+        {
             var cards = _cardData.GetAll().ToList();
 
             var result = cards
@@ -54,7 +63,7 @@ namespace Litmus.Controllers
         }
 
         // POST api/card
-        [Authorize(Roles = ActiveDirectory.LitmusAdmin)]
+        //[Authorize(Roles = ActiveDirectory.Admin)]
         [HttpPost]
         public IActionResult Create([FromBody] Card card)
         {
@@ -65,6 +74,7 @@ namespace Litmus.Controllers
                     card.Active = true;
 
                     _cardData.Add(card);
+                    CreateNewLog(card, new Card());
 
                     Response.StatusCode = (int)HttpStatusCode.Created;
                     return Json(new { Data = card });
@@ -80,7 +90,7 @@ namespace Litmus.Controllers
         }
 
         // PUT api/card/1
-        [Authorize(Roles = ActiveDirectory.LitmusAdmin)]
+        //[Authorize(Roles = ActiveDirectory.Admin)]
         [HttpPut("{id}")]
         public ActionResult Update(int id, [FromBody] Card updatedCard)
         {
@@ -101,17 +111,17 @@ namespace Litmus.Controllers
         }
 
         //DELETE api/card/1
-        [Authorize(Roles = ActiveDirectory.LitmusAdmin)]
+        //[Authorize(Roles = ActiveDirectory.Admin)]
         [HttpDelete("{id}")]
         public ActionResult Delete(int id)
         {
             Card oldCard = _cardData.Get(id).ShallowCopy();
+            Card newCard = _cardData.Get(id).ShallowCopy();
 
-            Card updatedCard = oldCard;
-            updatedCard.Active = false;
+            newCard.Active = false;
 
-            _cardData.Update(updatedCard);
-            CreateNewLog(updatedCard, oldCard);
+            _cardData.Update(newCard);
+            CreateNewLog(newCard, oldCard);
 
             return Json("Complete!");
         }

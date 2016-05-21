@@ -23,8 +23,8 @@ namespace Litmus
         private const string GroupIAmNotIn = "S-0";
 
         // maybe I shouldn't even have a User group, but just an Admin group
-        public const string LitmusUser = GroupIAmIn;
-        public const string LitmusAdmin = GroupIAmNotIn;
+        public const string User = GroupIAmIn;
+        public const string Admin = GroupIAmNotIn;
 
        
 
