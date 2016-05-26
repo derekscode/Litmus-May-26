@@ -87,8 +87,9 @@ namespace Litmus
 
             app.UseCors(builder =>
             builder.AllowAnyOrigin()
-                   .AllowAnyHeader()
-                   .AllowAnyMethod()
+                    .AllowCredentials()
+                    .AllowAnyHeader()
+                    .AllowAnyMethod()
             );
 
             app.UseMvc(routes =>
