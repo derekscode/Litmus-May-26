@@ -30,15 +30,11 @@ namespace Litmus.Controllers
         [HttpGet("UserIsAdmin")]
         public bool UserIsAdmin()
         {
-            //----------- remove this later
             //var groups = ActiveDirectory.GetGroups();
-
-            //----------- remove this later
             
-            bool userIsAdmin = User.IsInRole(ActiveDirectory.Admin);   
+            bool userIsAdmin = User.IsInRole(ActiveDirectory.Admin);
             return userIsAdmin;
         }
-
 
         // GET: api/card
         [HttpGet]
@@ -63,7 +59,7 @@ namespace Litmus.Controllers
         }
 
         // POST api/card
-        //[Authorize(Roles = ActiveDirectory.Admin)]
+        [Authorize(Roles = ActiveDirectory.Admin)]
         [HttpPost]
         public IActionResult Create([FromBody] Card card)
         {
@@ -90,7 +86,7 @@ namespace Litmus.Controllers
         }
 
         // PUT api/card/1
-        //[Authorize(Roles = ActiveDirectory.Admin)]
+        [Authorize(Roles = ActiveDirectory.Admin)]
         [HttpPut("{id}")]
         public ActionResult Update(int id, [FromBody] Card updatedCard)
         {
@@ -111,7 +107,7 @@ namespace Litmus.Controllers
         }
 
         //DELETE api/card/1
-        //[Authorize(Roles = ActiveDirectory.Admin)]
+        [Authorize(Roles = ActiveDirectory.Admin)]
         [HttpDelete("{id}")]
         public ActionResult Delete(int id)
         {
